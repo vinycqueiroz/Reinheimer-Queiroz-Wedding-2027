@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana Julia &amp; Vinicius</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --burgundy:#5c1a2e;
+    --burgundy-deep:#43101f;
+    --burgundy-soft:#8a3550;
+    --olive:#6b7047;
+    --olive-deep:#565a39;
+    --olive-soft:#9caa7f;
+    --cream:#f4efe2;
+    --cream-deep:#e9dfc8;
+    --ink:#2c2118;
+    --gold:#b08d57;
+    --line:rgba(44,33,24,0.16);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Cormorant Garamond',serif;
+    font-size:19px;
+    line-height:1.5;
+    min-height:100vh;
+  }
+  h1,h2,h3,h4{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    margin:0;
+    color:var(--burgundy-deep);
+  }
+  a{color:inherit;}
+  button{font-family:'Cormorant Garamond',serif;cursor:pointer;}
+  input,select,textarea{font-family:'Cormorant Garamond',serif;font-size:17px;}
+
+  /* ---------- header ---------- */
+  .hero{
+    background:linear-gradient(180deg,var(--burgundy-deep), var(--burgundy) 70%);
+    color:var(--cream);
+    text-align:center;
+    padding:56px 24px 34px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-flourish{
+    position:absolute; inset:0; opacity:0.16; pointer-events:none;
+  }
+  .hero h1{
+    color:var(--cream);
+    font-size:clamp(38px,7vw,64px);
+    letter-spacing:0.5px;
+  }
+  .hero .amp{
+    font-style:italic;
+    color:var(--olive-soft);
+    padding:0 14px;
+    font-weight:500;
+  }
+  .hero .sub{
+    margin-top:10px;
+    font-size:19px;
+    letter-spacing:1.5px;
+    color:var(--cream-deep);
+    text-transform:uppercase;
+    font-size:14px;
+  }
+  .hero .divider{
+    width:90px;height:1px;background:var(--gold);
+    margin:20px auto 0;
+  }
+
+  /* ---------- nav ---------- */
+  nav.tabs{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    background:var(--cream-deep);
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:20;
+  }
+  nav.tabs button{
+    background:none;border:none;
+    padding:18px 28px 15px;
+    font-size:18px;
+    color:var(--ink);
+    border-bottom:3px solid transparent;
+    letter-spacing:0.3px;
+    transition:color .2s, border-color .2s;
+  }
+  nav.tabs button:hover{color:var(--burgundy);}
+  nav.tabs button.active{
+    color:var(--burgundy);
+    border-bottom-color:var(--gold);
+    font-weight:600;
+  }
+
+  main{max-width:920px;margin:0 auto;padding:44px 22px 90px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .section-title{text-align:center;margin-bottom:8px;font-size:34px;}
+  .section-sub{text-align:center;color:var(--burgundy-soft);font-style:italic;margin-bottom:34px;font-size:19px;}
+
+  /* ---------- RSVP search ---------- */
+  .rsvp-search-wrap{max-width:480px;margin:0 auto;}
+  .search-box{position:relative;}
+  .search-box input{
+    width:100%;
+    padding:14px 18px;
+    font-size:20px;
+    border:1px solid var(--line);
+    border-bottom:2px solid var(--burgundy);
+    background:#fff;
+    color:var(--ink);
+    outline:none;
+  }
+  .search-box input:focus{border-bottom-color:var(--gold);}
+  .search-results{
+    background:#fff;
+    border:1px solid var(--line);
+    border-top:none;
+    margin-top:-1px;
+  }
+  .search-results button{
+    display:block;width:100%;text-align:left;
+    padding:12px 18px;background:none;border:none;
+    font-size:19px;border-bottom:1px solid var(--line);
+  }
+  .search-results button:last-child{border-bottom:none;}
+  .search-results button:hover{background:var(--cream-deep);}
+  .search-hint{text-align:center;color:#8a7f6d;font-size:15px;margin-top:10px;font-style:italic;}
+
+  .family-card{
+    max-width:520px;margin:26px auto 0;
+    background:#fff;border:1px solid var(--line);
+    padding:30px 30px 26px;
+  }
+  .family-card h3{font-size:26px;text-align:center;margin-bottom:4px;}
+  .family-card .fam-note{text-align:center;color:#8a7f6d;font-size:15px;margin-bottom:20px;font-style:italic;}
+  .member-row{
+    display:flex;align-items:center;gap:14px;
+    padding:12px 4px;border-bottom:1px solid var(--line);
+  }
+  .member-row:last-of-type{border-bottom:none;}
+  .member-row input[type=checkbox]{
+    width:22px;height:22px;accent-color:var(--burgundy);
+    flex-shrink:0;
+  }
+  .member-row label{font-size:20px;flex:1;}
+  .rsvp-submit{
+    width:100%;margin-top:22px;
+    background:var(--burgundy);color:var(--cream);
+    border:none;padding:13px;font-size:19px;letter-spacing:0.5px;
+    transition:background .2s;
+  }
+  .rsvp-submit:hover{background:var(--burgundy-deep);}
+  .rsvp-msg{text-align:center;margin-top:14px;font-size:16px;color:var(--olive-deep);}
+  .already-note{
+    background:var(--cream-deep);border-left:3px solid var(--gold);
+    padding:10px 14px;font-size:15px;margin-bottom:18px;color:var(--ink);
+  }
+
+  /* ---------- Registry ---------- */
+  .fund-banner{
+    background:var(--olive);color:var(--cream);
+    padding:38px 34px;margin-bottom:40px;
+    text-align:center;
+  }
+  .fund-banner h2{color:var(--cream);font-size:29px;margin-bottom:10px;}
+  .fund-banner p{font-size:19px;line-height:1.55;max-width:560px;margin:0 auto;color:var(--cream-deep);}
+  .fund-banner .ship-line{
+    margin-top:16px;font-size:16px;color:var(--olive-soft);
+    border-top:1px solid rgba(244,239,226,0.25);padding-top:14px;
+  }
+
+  .filter-row{
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+    margin-bottom:30px;
+  }
+  .filter-row button{
+    background:#fff;border:1px solid var(--line);
+    padding:7px 18px;font-size:16px;color:var(--ink);
+    border-radius:2px;
+  }
+  .filter-row button.active{
+    background:var(--burgundy);color:#fff;border-color:var(--burgundy);
+  }
+
+  .registry-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:22px;
+  }
+  .gift-card{
+    background:#fff;border:1px solid var(--line);
+    display:flex;flex-direction:column;
+  }
+  .gift-img{
+    width:100%;aspect-ratio:1/1;object-fit:cover;
+    background:var(--cream-deep);
+  }
+  .gift-body{padding:16px 16px 18px;flex:1;display:flex;flex-direction:column;}
+  .gift-cat{font-style:italic;color:var(--burgundy-soft);font-size:14px;margin-bottom:3px;}
+  .gift-name{font-size:20px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+  .gift-price{color:#8a7f6d;font-size:16px;margin-bottom:12px;}
+  .gift-actions{margin-top:auto;display:flex;flex-direction:column;gap:8px;}
+  .gift-link{
+    font-size:15px;color:var(--burgundy);text-decoration:underline;
+  }
+  .gift-claim-btn{
+    background:var(--burgundy);color:#fff;border:none;padding:9px;font-size:16px;
+  }
+  .gift-claim-btn:hover{background:var(--burgundy-deep);}
+  .gift-taken{
+    background:var(--cream-deep);color:#8a7f6d;border:1px dashed var(--line);
+    padding:9px;font-size:15px;text-align:center;font-style:italic;
+  }
+  .empty-note{text-align:center;color:#8a7f6d;font-style:italic;padding:40px 0;}
+
+  /* ---------- host login / admin ---------- */
+  .host-link-wrap{text-align:center;margin-top:60px;}
+  .host-link-wrap button{
+    background:none;border:none;color:#8a7f6d;font-size:14px;
+    text-decoration:underline;letter-spacing:0.3px;
+  }
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(44,33,24,0.55);
+    display:flex;align-items:center;justify-content:center;
+    z-index:100;padding:20px;
+  }
+  .modal{
+    background:#fff;max-width:400px;width:100%;padding:30px 28px;
+    border-top:3px solid var(--burgundy);
+  }
+  .modal h3{margin-bottom:14px;font-size:24px;}
+  .modal p{font-size:16px;color:#5c5346;margin-bottom:14px;}
+  .modal input{
+    width:100%;padding:10px 12px;border:1px solid var(--line);margin-bottom:12px;
+  }
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px;}
+  .btn{
+    padding:9px 20px;border:1px solid var(--burgundy);background:#fff;color:var(--burgundy);font-size:16px;
+  }
+  .btn-primary{background:var(--burgundy);color:#fff;}
+  .btn-primary:hover{background:var(--burgundy-deep);}
+  .btn-ghost{border-color:var(--line);color:#8a7f6d;}
+  .modal-err{color:#a33;font-size:14px;margin-top:-6px;margin-bottom:10px;}
+
+  /* ---------- admin dashboard ---------- */
+  .admin-bar{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:30px;flex-wrap:wrap;gap:10px;
+  }
+  .admin-tabs{display:flex;gap:6px;flex-wrap:wrap;}
+  .admin-tabs button{
+    background:#fff;border:1px solid var(--line);padding:8px 16px;font-size:15px;
+  }
+  .admin-tabs button.active{background:var(--olive);border-color:var(--olive);color:#fff;}
+  .logout-btn{background:none;border:none;color:#8a7f6d;text-decoration:underline;font-size:14px;}
+
+  .stat-row{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap;}
+  .stat{
+    background:#fff;border:1px solid var(--line);padding:16px 22px;flex:1;min-width:120px;text-align:center;
+  }
+  .stat .num{font-family:'Playfair Display',serif;font-size:30px;color:var(--burgundy);}
+  .stat .lbl{font-size:14px;color:#8a7f6d;letter-spacing:0.3px;}
+
+  table.admin-table{width:100%;border-collapse:collapse;background:#fff;margin-bottom:10px;}
+  table.admin-table th,table.admin-table td{
+    text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);font-size:16px;
+  }
+  table.admin-table th{background:var(--cream-deep);font-weight:600;font-size:14px;color:#5c5346;}
+  .badge{padding:3px 10px;font-size:13px;border-radius:2px;display:inline-block;}
+  .badge-yes{background:#e4ecdd;color:var(--olive-deep);}
+  .badge-no{background:#f4dede;color:#a33;}
+  .badge-pending{background:var(--cream-deep);color:#8a7f6d;}
+
+  .admin-section{margin-bottom:46px;}
+  .admin-section h3{font-size:24px;margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:8px;}
+  .row-actions button{
+    background:none;border:none;font-size:14px;color:var(--burgundy);text-decoration:underline;margin-right:10px;padding:0;
+  }
+  .row-actions button.danger{color:#a33;}
+
+  .inline-form{
+    background:#fff;border:1px solid var(--line);padding:20px;margin-top:14px;
+  }
+  .inline-form .field-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+  .inline-form label{display:block;font-size:14px;color:#5c5346;margin-bottom:4px;}
+  .inline-form input, .inline-form select, .inline-form textarea{
+    padding:8px 10px;border:1px solid var(--line);width:100%;
+  }
+  .field-col{flex:1;min-width:150px;}
+  .member-input-row{display:flex;gap:8px;margin-bottom:8px;align-items:center;}
+  .member-input-row input{flex:1;}
+  .small-x{background:none;border:none;color:#a33;font-size:20px;line-height:1;padding:0 6px;}
+  .add-link{background:none;border:none;color:var(--burgundy);text-decoration:underline;font-size:15px;padding:0;margin-bottom:8px;}
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    background:var(--burgundy-deep);color:#fff;padding:12px 22px;font-size:16px;
+    z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;
+  }
+  .toast.show{opacity:1;}
+  .loading{text-align:center;padding:60px 0;color:#8a7f6d;font-style:italic;}
+  @media (max-width:520px){
+    .hero{padding:40px 16px 26px;}
+    nav.tabs button{padding:14px 16px 12px;font-size:16px;}
+    .fund-banner{padding:28px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="hero-flourish" viewBox="0 0 800 200" preserveAspectRatio="none"><path d="M0,150 Q200,80 400,150 T800,150" stroke="#f4efe2" stroke-width="1" fill="none"/></svg>
+  <h1><span id="nameOne">Ana Julia</span><span class="amp">&amp;</span><span id="nameTwo">Vinicius</span></h1>
+  <div class="sub" id="weddingDateLine">are getting married</div>
+  <div class="divider"></div>
+</header>
+
+<nav class="tabs">
+  <button data-tab="rsvp" class="active">RSVP</button>
+  <button data-tab="registry">Registry</button>
+</nav>
+
+<main>
+
+  <!-- RSVP PANEL -->
+  <section class="panel active" id="panel-rsvp">
+    <h2 class="section-title">RSVP</h2>
+    <p class="section-sub">Find your family to respond</p>
+
+    <div class="rsvp-search-wrap">
+      <div class="search-box">
+        <input type="text" id="rsvpSearchInput" placeholder="Type your last name…" autocomplete="off">
+        <div class="search-results" id="rsvpSearchResults" style="display:none;"></div>
+      </div>
+      <div class="search-hint">Search by the last name on your invitation.</div>
+    </div>
+
+    <div id="rsvpFamilyArea"></div>
+
+    <div class="host-link-wrap"><button id="hostLoginBtn">Host login</button></div>
+  </section>
+
+  <!-- REGISTRY PANEL -->
+  <section class="panel" id="panel-registry">
+    <h2 class="section-title">Registry</h2>
+    <p class="section-sub">A few things that would mean a lot</p>
+
+    <div class="fund-banner">
+      <h2 id="fundTitle">Honeymoon Fund</h2>
+      <p id="fundText">Your presence is truly the gift — but if you'd like to contribute to our honeymoon, we'd be endlessly grateful.</p>
+      <div class="ship-line" id="shipLine" style="display:none;"></div>
+    </div>
+
+    <div class="filter-row" id="registryFilters"></div>
+    <div class="registry-grid" id="registryGrid"></div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<!-- Host login modal -->
+<div class="modal-overlay" id="hostModalOverlay" style="display:none;">
+  <div class="modal">
+    <h3 id="hostModalTitle">Host Login</h3>
+    <p id="hostModalDesc">Enter your host password to view RSVPs and manage the registry.</p>
+    <input type="password" id="hostPasswordInput" placeholder="Password">
+    <input type="password" id="hostPasswordConfirm" placeholder="Confirm password" style="display:none;">
+    <div class="modal-err" id="hostModalErr" style="display:none;"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="hostModalCancel">Cancel</button>
+      <button class="btn btn-primary" id="hostModalSubmit">Enter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+
+let state = {
+  config: null,
+  families: [],
+  items: [],
+  isHost: false,
+  activeFilter: 'All',
+  activeMemberSelection: null
+};
+
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+const uid = () => Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
+
+function showToast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+async function sha256(text){
+  const enc = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest('SHA-256', enc);
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ---------- storage layer (shared storage, falls back to localStorage) ----------
+const store = (function(){
+  const hasShared = typeof window !== 'undefined' && window.storage && typeof window.storage.get === 'function';
+  const mem = {};
+  return {
+    async get(key){
+      if(hasShared){
+        try { return await window.storage.get(key, true); } catch(e){ return null; }
+      }
+      try {
+        const v = localStorage.getItem('wed:'+key);
+        return v === null ? null : { key, value: v };
+      } catch(e){
+        return mem[key] !== undefined ? { key, value: mem[key] } : null;
+      }
+    },
+    async set(key, value){
+      if(hasShared){
+        try { return await window.storage.set(key, value, true); } catch(e){}
+      }
+      try { localStorage.setItem('wed:'+key, value); } catch(e){ mem[key] = value; }
+      return { key, value };
+    }
+  };
+})();
+
+async function loadConfig(){
+  try{
+    const r = await store.get('siteConfig');
+    return r ? JSON.parse(r.value) : null;
+  }catch(e){ return null; }
+}
+async function saveConfig(cfg){
+  await store.set('siteConfig', JSON.stringify(cfg));
+}
+async function loadFamilies(){
+  try{
+    const r = await store.get('guestFamilies');
+    return r ? JSON.parse(r.value) : [];
+  }catch(e){ return []; }
+}
+async function saveFamilies(fams){
+  await store.set('guestFamilies', JSON.stringify(fams));
+}
+async function loadItems(){
+  try{
+    const r = await store.get('registryItems');
+    return r ? JSON.parse(r.value) : [];
+  }catch(e){ return []; }
+}
+async function saveItems(items){
+  await store.set('registryItems', JSON.stringify(items));
+}
+
+// ---------- init ----------
+async function init(){
+  main_show_loading(true);
+  state.config = await loadConfig();
+  state.families = await loadFamilies();
+  state.items = await loadItems();
+  if(!state.config){
+    state.config = {
+      nameOne: 'Ana Julia',
+      nameTwo: 'Vinicius',
+      coupleLine: 'are getting married',
+      weddingDate: '',
+      fundTitle: 'Honeymoon Fund',
+      fundText: "Your presence is truly the gift — but if you'd like to contribute to our honeymoon, we'd be endlessly grateful.",
+      fundHow: '',
+      shippingAddress: '',
+      adminPasswordHash: null
+    };
+  }
+  applyConfigToHeader();
+  renderRegistryFilters();
+  renderRegistry();
+  main_show_loading(false);
+}
+function main_show_loading(on){
+  // no-op placeholder for potential future loading UI
+}
+
+function applyConfigToHeader(){
+  const n1 = state.config.nameOne || 'Ana Julia';
+  const n2 = state.config.nameTwo || 'Vinicius';
+  $('#nameOne').textContent = n1;
+  $('#nameTwo').textContent = n2;
+  document.title = n1 + ' & ' + n2;
+  const line = state.config.coupleLine || 'are getting married';
+  const date = state.config.weddingDate ? ' · ' + state.config.weddingDate : '';
+  $('#weddingDateLine').textContent = line + date;
+  $('#fundTitle').textContent = state.config.fundTitle || 'Honeymoon Fund';
+  $('#fundText').textContent = state.config.fundText || '';
+  const shipEl = $('#shipLine');
+  if(state.config.fundHow || state.config.shippingAddress){
+    let parts = [];
+    if(state.config.fundHow) parts.push(state.config.fundHow);
+    shipEl.textContent = parts.join('  ·  ');
+    shipEl.style.display = parts.length ? 'block' : 'none';
+  } else {
+    shipEl.style.display = 'none';
+  }
+}
+
+// ---------- tabs ----------
+$$('nav.tabs > button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    $$('nav.tabs > button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    $$('main > .panel').forEach(p=>p.classList.remove('active'));
+    $('#panel-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ============================================================
+// RSVP — guest side
+// ============================================================
+const searchInput = $('#rsvpSearchInput');
+const searchResults = $('#rsvpSearchResults');
+const familyArea = $('#rsvpFamilyArea');
+
+searchInput.addEventListener('input', ()=>{
+  const q = searchInput.value.trim().toLowerCase();
+  familyArea.innerHTML = '';
+  if(!q){ searchResults.style.display='none'; searchResults.innerHTML=''; return; }
+  const matches = state.families.filter(f => f.lastName.toLowerCase().includes(q));
+  if(matches.length === 0){
+    searchResults.style.display='block';
+    searchResults.innerHTML = '<div style="padding:12px 18px;color:#8a7f6d;font-style:italic;">No family found with that name. Please check the spelling or reach out to us directly.</div>';
+    return;
+  }
+  searchResults.style.display='block';
+  searchResults.innerHTML = matches.map(f=>
+    `<button data-fid="${f.id}">${escapeHtml(f.lastName)} Family</button>`
+  ).join('');
+});
+
+searchResults.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button[data-fid]');
+  if(!btn) return;
+  const fam = state.families.find(f=>f.id===btn.dataset.fid);
+  searchResults.style.display='none';
+  searchResults.innerHTML='';
+  searchInput.value='';
+  renderFamilyForm(fam);
+});
+
+function renderFamilyForm(fam){
+  const alreadyResponded = fam.responded;
+  familyArea.innerHTML = `
+    <div class="family-card">
+      <h3>${escapeHtml(fam.lastName)} Family</h3>
+      <div class="fam-note">Please check off who will be attending.</div>
+      ${alreadyResponded ? '<div class="already-note">You\'ve already responded — feel free to update it below.</div>' : ''}
+      <form id="famForm">
+        ${fam.members.map(m=>`
+          <div class="member-row">
+            <input type="checkbox" id="mem-${m.id}" ${m.attending===true?'checked':''}>
+            <label for="mem-${m.id}">${escapeHtml(m.name)}</label>
+          </div>
+        `).join('')}
+        <button type="submit" class="rsvp-submit">Submit RSVP</button>
+      </form>
+      <div class="rsvp-msg" id="famMsg"></div>
+    </div>
+  `;
+  $('#famForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const freshFamilies = await loadFamilies();
+    const freshFam = freshFamilies.find(f=>f.id===fam.id);
+    if(!freshFam){ $('#famMsg').textContent = 'Something went wrong — please try searching again.'; return; }
+    freshFam.members.forEach(m=>{
+      const cb = $('#mem-'+m.id);
+      m.attending = cb ? cb.checked : false;
+    });
+    freshFam.responded = true;
+    freshFam.submittedAt = new Date().toISOString();
+    await saveFamilies(freshFamilies);
+    state.families = freshFamilies;
+    $('#famMsg').textContent = 'Thank you! Your RSVP has been recorded.';
+    showToast('RSVP saved — thank you!');
+  });
+}
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ============================================================
+// REGISTRY — guest side
+// ============================================================
+function renderRegistryFilters(){
+  const cats = ['All', ...new Set(state.items.map(i=>i.category).filter(Boolean))];
+  $('#registryFilters').innerHTML = cats.map(c=>
+    `<button data-cat="${escapeHtml(c)}" class="${state.activeFilter===c?'active':''}">${escapeHtml(c)}</button>`
+  ).join('');
+  $$('#registryFilters button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.activeFilter = btn.dataset.cat;
+      renderRegistryFilters();
+      renderRegistry();
+    });
+  });
+}
+
+function renderRegistry(){
+  const grid = $('#registryGrid');
+  let items = state.items;
+  if(state.activeFilter !== 'All') items = items.filter(i=>i.category===state.activeFilter);
+  if(items.length===0){
+    grid.innerHTML = '<div class="empty-note">No gifts in this category yet.</div>';
+    return;
+  }
+  grid.innerHTML = items.map(item=>`
+    <div class="gift-card">
+      <img class="gift-img" src="${item.imageUrl || 'https://placehold.co/400x400/e9dfc8/5c1a2e?text=Gift'}" alt="${escapeHtml(item.name)}" onerror="this.src='https://placehold.co/400x400/e9dfc8/5c1a2e?text=Gift'">
+      <div class="gift-body">
+        <div class="gift-cat">${escapeHtml(item.category||'Gift')}</div>
+        <div class="gift-name">${escapeHtml(item.name)}</div>
+        ${item.price ? `<div class="gift-price">${escapeHtml(item.price)}</div>` : ''}
+        ${item.link ? `<a class="gift-link" href="${item.link}" target="_blank" rel="noopener">View item ↗</a>` : ''}
+        <div class="gift-actions">
+          ${item.purchased
+            ? `<div class="gift-taken">Already claimed${item.purchasedBy ? ' by '+escapeHtml(item.purchasedBy) : ''} — thank you!</div>`
+            : `<button class="gift-claim-btn" data-claim="${item.id}">I'll get this gift</button>`
+          }
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  $$('#registryGrid button[data-claim]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const id = btn.dataset.claim;
+      const name = prompt("Great! What name should we put down for this gift? (so we know who to thank)");
+      if(name === null) return;
+      const fresh = await loadItems();
+      const freshItem = fresh.find(i=>i.id===id);
+      if(!freshItem){ showToast('Item not found.'); return; }
+      if(freshItem.purchased){
+        showToast('Oh no — someone just claimed this gift. Refreshing the list…');
+        state.items = fresh;
+        renderRegistryFilters();
+        renderRegistry();
+        return;
+      }
+      freshItem.purchased = true;
+      freshItem.purchasedBy = name.trim() || 'a guest';
+      await saveItems(fresh);
+      state.items = fresh;
+      renderRegistryFilters();
+      renderRegistry();
+      showToast('Thank you so much!');
+    });
+  });
+}
+
+// ============================================================
+// HOST LOGIN
+// ============================================================
+const overlay = $('#hostModalOverlay');
+const pwInput = $('#hostPasswordInput');
+const pwConfirm = $('#hostPasswordConfirm');
+const modalErr = $('#hostModalErr');
+const modalTitle = $('#hostModalTitle');
+const modalDesc = $('#hostModalDesc');
+const modalSubmit = $('#hostModalSubmit');
+
+$('#hostLoginBtn').addEventListener('click', openHostModal);
+
+function openHostModal(){
+  modalErr.style.display='none';
+  pwInput.value=''; pwConfirm.value='';
+  if(!state.config.adminPasswordHash){
+    modalTitle.textContent = 'Set Up Host Password';
+    modalDesc.textContent = 'Create a password to protect your RSVP overview and registry management. Keep it somewhere safe — you\'ll need it every time.';
+    pwConfirm.style.display='block';
+    modalSubmit.textContent = 'Create Password';
+  } else {
+    modalTitle.textContent = 'Host Login';
+    modalDesc.textContent = 'Enter your host password to view RSVPs and manage the registry.';
+    pwConfirm.style.display='none';
+    modalSubmit.textContent = 'Enter';
+  }
+  overlay.style.display='flex';
+  setTimeout(()=>pwInput.focus(), 50);
+}
+$('#hostModalCancel').addEventListener('click', ()=>overlay.style.display='none');
+overlay.addEventListener('click', (e)=>{ if(e.target===overlay) overlay.style.display='none'; });
+
+modalSubmit.addEventListener('click', async ()=>{
+  const pw = pwInput.value;
+  if(!pw || pw.length < 4){
+    modalErr.textContent = 'Password must be at least 4 characters.';
+    modalErr.style.display='block';
+    return;
+  }
+  if(!state.config.adminPasswordHash){
+    if(pw !== pwConfirm.value){
+      modalErr.textContent = 'Passwords do not match.';
+      modalErr.style.display='block';
+      return;
+    }
+    state.config.adminPasswordHash = await sha256(pw);
+    await saveConfig(state.config);
+    overlay.style.display='none';
+    enterHostMode();
+  } else {
+    const hash = await sha256(pw);
+    if(hash === state.config.adminPasswordHash){
+      overlay.style.display='none';
+      enterHostMode();
+    } else {
+      modalErr.textContent = 'Incorrect password.';
+      modalErr.style.display='block';
+    }
+  }
+});
+pwInput.addEventListener('keydown', e=>{ if(e.key==='Enter' && pwConfirm.style.display==='none') modalSubmit.click(); });
+pwConfirm.addEventListener('keydown', e=>{ if(e.key==='Enter') modalSubmit.click(); });
+
+function enterHostMode(){
+  state.isHost = true;
+  // Replace nav with host nav
+  document.querySelector('nav.tabs').style.display='none';
+  $$('main > .panel').forEach(p=>p.classList.remove('active'));
+  buildAdminPanel();
+  showToast('Welcome back!');
+}
+
+// ============================================================
+// ADMIN DASHBOARD
+// ============================================================
+let adminTab = 'overview';
+
+function buildAdminPanel(){
+  let existing = $('#panel-admin');
+  if(!existing){
+    existing = document.createElement('section');
+    existing.className = 'panel';
+    existing.id = 'panel-admin';
+    $('main').insertBefore(existing, $('main').lastElementChild);
+  }
+  existing.classList.add('active');
+  renderAdmin();
+}
+
+function renderAdmin(){
+  const panel = $('#panel-admin');
+  panel.innerHTML = `
+    <div class="admin-bar">
+      <div class="admin-tabs">
+        <button data-atab="overview" class="${adminTab==='overview'?'active':''}">RSVP Overview</button>
+        <button data-atab="guests" class="${adminTab==='guests'?'active':''}">Manage Guest List</button>
+        <button data-atab="registry" class="${adminTab==='registry'?'active':''}">Manage Registry</button>
+        <button data-atab="settings" class="${adminTab==='settings'?'active':''}">Site Settings</button>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Log out</button>
+    </div>
+    <div id="adminContent"></div>
+  `;
+  $$('.admin-tabs button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ adminTab = btn.dataset.atab; renderAdmin(); });
+  });
+  $('#logoutBtn').addEventListener('click', ()=>{
+    state.isHost = false;
+    panel.classList.remove('active');
+    panel.remove();
+    document.querySelector('nav.tabs').style.display='flex';
+    $('#panel-rsvp').classList.add('active');
+    document.querySelector('nav.tabs button[data-tab="rsvp"]').classList.add('active');
+    document.querySelector('nav.tabs button[data-tab="registry"]').classList.remove('active');
+  });
+
+  if(adminTab==='overview') renderAdminOverview();
+  if(adminTab==='guests') renderAdminGuests();
+  if(adminTab==='registry') renderAdminRegistry();
+  if(adminTab==='settings') renderAdminSettings();
+}
+
+// ---- Overview ----
+function renderAdminOverview(){
+  const c = $('#adminContent');
+  let totalGuests=0, yes=0, no=0, pending=0, respondedFams=0;
+  state.families.forEach(f=>{
+    if(f.responded) respondedFams++;
+    f.members.forEach(m=>{
+      totalGuests++;
+      if(!f.responded) pending++;
+      else if(m.attending) yes++;
+      else no++;
+    });
+  });
+  c.innerHTML = `
+    <div class="stat-row">
+      <div class="stat"><div class="num">${state.families.length}</div><div class="lbl">Families invited</div></div>
+      <div class="stat"><div class="num">${totalGuests}</div><div class="lbl">Total guests</div></div>
+      <div class="stat"><div class="num">${yes}</div><div class="lbl">Attending</div></div>
+      <div class="stat"><div class="num">${no}</div><div class="lbl">Declined</div></div>
+      <div class="stat"><div class="num">${pending}</div><div class="lbl">Awaiting reply</div></div>
+    </div>
+    <div class="admin-section">
+      <h3>All Guests</h3>
+      ${state.families.length===0 ? '<p style="color:#8a7f6d;font-style:italic;">No families added yet — go to "Manage Guest List" to add your guests.</p>' : `
+      <table class="admin-table">
+        <thead><tr><th>Family</th><th>Guest</th><th>Status</th><th>Submitted</th></tr></thead>
+        <tbody>
+          ${state.families.flatMap(f=>f.members.map((m,idx)=>`
+            <tr>
+              <td>${idx===0?escapeHtml(f.lastName):''}</td>
+              <td>${escapeHtml(m.name)}</td>
+              <td>${!f.responded ? '<span class="badge badge-pending">Awaiting reply</span>' : (m.attending ? '<span class="badge badge-yes">Attending</span>' : '<span class="badge badge-no">Not attending</span>')}</td>
+              <td>${f.responded && idx===0 ? new Date(f.submittedAt).toLocaleDateString() : ''}</td>
+            </tr>
+          `)).join('')}
+        </tbody>
+      </table>`}
+    </div>
+  `;
+}
+
+// ---- Manage Guests ----
+function renderAdminGuests(){
+  const c = $('#adminContent');
+  c.innerHTML = `
+    <div class="admin-section">
+      <h3>Families</h3>
+      <table class="admin-table">
+        <thead><tr><th>Last Name</th><th>Members</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          ${state.families.map(f=>`
+            <tr>
+              <td>${escapeHtml(f.lastName)}</td>
+              <td>${f.members.map(m=>escapeHtml(m.name)).join(', ')}</td>
+              <td>${f.responded ? '<span class="badge badge-yes">Responded</span>' : '<span class="badge badge-pending">Pending</span>'}</td>
+              <td class="row-actions">
+                <button data-edit-fam="${f.id}">Edit</button>
+                <button class="danger" data-del-fam="${f.id}">Delete</button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <button class="add-link" id="addFamBtn" style="margin-top:14px;">+ Add a family</button>
+      <div id="famFormArea"></div>
+    </div>
+  `;
+  $('#addFamBtn').addEventListener('click', ()=>renderFamilyEditForm(null));
+  $$('button[data-edit-fam]').forEach(b=>b.addEventListener('click', ()=>{
+    const fam = state.families.find(f=>f.id===b.dataset.editFam);
+    renderFamilyEditForm(fam);
+  }));
+  $$('button[data-del-fam]').forEach(b=>b.addEventListener('click', async ()=>{
+    if(!confirm('Delete this family and their RSVP? This cannot be undone.')) return;
+    state.families = state.families.filter(f=>f.id!==b.dataset.delFam);
+    await saveFamilies(state.families);
+    renderAdminGuests();
+    showToast('Family deleted.');
+  }));
+}
+
+function renderFamilyEditForm(fam){
+  const isNew = !fam;
+  const members = fam ? fam.members.map(m=>({id:m.id, name:m.name})) : [{id:uid(), name:''}];
+  const area = $('#famFormArea');
+  area.innerHTML = `
+    <div class="inline-form">
+      <label>Last name</label>
+      <input type="text" id="famLastName" value="${fam?escapeHtml(fam.lastName):''}" placeholder="e.g. Rodriguez">
+      <label style="margin-top:12px;">Guests in this household</label>
+      <div id="memberRows"></div>
+      <button type="button" class="add-link" id="addMemberRow">+ Add guest</button>
+      <div class="modal-actions" style="justify-content:flex-start;margin-top:14px;">
+        <button class="btn btn-primary" id="saveFamBtn">${isNew?'Add Family':'Save Changes'}</button>
+        <button class="btn btn-ghost" id="cancelFamBtn">Cancel</button>
+      </div>
+    </div>
+  `;
+  function renderMemberRows(){
+    $('#memberRows').innerHTML = members.map((m,i)=>`
+      <div class="member-input-row">
+        <input type="text" data-mid="${m.id}" value="${escapeHtml(m.name)}" placeholder="Full name">
+        ${members.length>1 ? `<button type="button" class="small-x" data-rm="${m.id}">×</button>` : ''}
+      </div>
+    `).join('');
+    $$('#memberRows button[data-rm]').forEach(b=>b.addEventListener('click', ()=>{
+      const idx = members.findIndex(m=>m.id===b.dataset.rm);
+      members.splice(idx,1);
+      renderMemberRows();
+    }));
+  }
+  renderMemberRows();
+  $('#addMemberRow').addEventListener('click', ()=>{
+    members.push({id:uid(), name:''});
+    renderMemberRows();
+  });
+  $('#cancelFamBtn').addEventListener('click', ()=>{ area.innerHTML=''; });
+  $('#saveFamBtn').addEventListener('click', async ()=>{
+    const lastName = $('#famLastName').value.trim();
+    if(!lastName){ showToast('Please enter a last name.'); return; }
+    $$('#memberRows input').forEach(inp=>{
+      const m = members.find(mm=>mm.id===inp.dataset.mid);
+      if(m) m.name = inp.value.trim();
+    });
+    const cleanMembers = members.filter(m=>m.name);
+    if(cleanMembers.length===0){ showToast('Please add at least one guest.'); return; }
+
+    const fresh = await loadFamilies();
+    if(isNew){
+      fresh.push({ id: uid(), lastName, members: cleanMembers.map(m=>({id:m.id,name:m.name})), responded:false });
+    } else {
+      const target = fresh.find(f=>f.id===fam.id);
+      target.lastName = lastName;
+      // preserve attending status for members that still exist
+      target.members = cleanMembers.map(m=>{
+        const old = fam.members.find(om=>om.id===m.id);
+        return { id:m.id, name:m.name, attending: old ? old.attending : undefined };
+      });
+    }
+    await saveFamilies(fresh);
+    state.families = fresh;
+    area.innerHTML='';
+    renderAdminGuests();
+    showToast(isNew? 'Family added.' : 'Family updated.');
+  });
+}
+
+// ---- Manage Registry ----
+function renderAdminRegistry(){
+  const c = $('#adminContent');
+  c.innerHTML = `
+    <div class="admin-section">
+      <h3>Gifts</h3>
+      <table class="admin-table">
+        <thead><tr><th>Item</th><th>Category</th><th>Price</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          ${state.items.map(it=>`
+            <tr>
+              <td>${escapeHtml(it.name)}</td>
+              <td>${escapeHtml(it.category||'')}</td>
+              <td>${escapeHtml(it.price||'')}</td>
+              <td>${it.purchased ? `<span class="badge badge-no">Claimed${it.purchasedBy?' — '+escapeHtml(it.purchasedBy):''}</span>` : '<span class="badge badge-yes">Available</span>'}</td>
+              <td class="row-actions">
+                <button data-edit-item="${it.id}">Edit</button>
+                ${it.purchased ? `<button data-reset-item="${it.id}">Reset</button>` : ''}
+                <button class="danger" data-del-item="${it.id}">Delete</button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <button class="add-link" id="addItemBtn" style="margin-top:14px;">+ Add a gift</button>
+      <div id="itemFormArea"></div>
+    </div>
+  `;
+  $('#addItemBtn').addEventListener('click', ()=>renderItemEditForm(null));
+  $$('button[data-edit-item]').forEach(b=>b.addEventListener('click', ()=>{
+    renderItemEditForm(state.items.find(i=>i.id===b.dataset.editItem));
+  }));
+  $$('button[data-del-item]').forEach(b=>b.addEventListener('click', async ()=>{
+    if(!confirm('Delete this gift?')) return;
+    state.items = state.items.filter(i=>i.id!==b.dataset.delItem);
+    await saveItems(state.items);
+    renderAdminRegistry();
+    showToast('Gift deleted.');
+  }));
+  $$('button[data-reset-item]').forEach(b=>b.addEventListener('click', async ()=>{
+    if(!confirm('Mark this gift as available again?')) return;
+    const fresh = await loadItems();
+    const it = fresh.find(i=>i.id===b.dataset.resetItem);
+    it.purchased = false; it.purchasedBy = '';
+    await saveItems(fresh);
+    state.items = fresh;
+    renderAdminRegistry();
+    showToast('Gift reset to available.');
+  }));
+}
+
+function renderItemEditForm(item){
+  const isNew = !item;
+  const area = $('#itemFormArea');
+  area.innerHTML = `
+    <div class="inline-form">
+      <div class="field-row">
+        <div class="field-col"><label>Gift name</label><input id="itName" value="${item?escapeHtml(item.name):''}" placeholder="e.g. Le Creuset Dutch Oven"></div>
+        <div class="field-col"><label>Category</label><input id="itCategory" value="${item?escapeHtml(item.category||''):''}" placeholder="e.g. Kitchen"></div>
+      </div>
+      <div class="field-row">
+        <div class="field-col"><label>Price (optional)</label><input id="itPrice" value="${item?escapeHtml(item.price||''):''}" placeholder="e.g. $120"></div>
+        <div class="field-col"><label>Purchase link (optional)</label><input id="itLink" value="${item?escapeHtml(item.link||''):''}" placeholder="https://…"></div>
+      </div>
+      <label>Image URL</label>
+      <input id="itImage" value="${item?escapeHtml(item.imageUrl||''):''}" placeholder="https://…jpg">
+      <div class="modal-actions" style="justify-content:flex-start;margin-top:14px;">
+        <button class="btn btn-primary" id="saveItemBtn">${isNew?'Add Gift':'Save Changes'}</button>
+        <button class="btn btn-ghost" id="cancelItemBtn">Cancel</button>
+      </div>
+    </div>
+  `;
+  $('#cancelItemBtn').addEventListener('click', ()=>area.innerHTML='');
+  $('#saveItemBtn').addEventListener('click', async ()=>{
+    const name = $('#itName').value.trim();
+    if(!name){ showToast('Please enter a gift name.'); return; }
+    const data = {
+      name,
+      category: $('#itCategory').value.trim() || 'Gift',
+      price: $('#itPrice').value.trim(),
+      link: $('#itLink').value.trim(),
+      imageUrl: $('#itImage').value.trim()
+    };
+    const fresh = await loadItems();
+    if(isNew){
+      fresh.push({ id: uid(), purchased:false, purchasedBy:'', ...data });
+    } else {
+      const target = fresh.find(i=>i.id===item.id);
+      Object.assign(target, data);
+    }
+    await saveItems(fresh);
+    state.items = fresh;
+    area.innerHTML='';
+    renderAdminRegistry();
+    renderRegistryFilters();
+    renderRegistry();
+    showToast(isNew? 'Gift added.' : 'Gift updated.');
+  });
+}
+
+// ---- Settings ----
+function renderAdminSettings(){
+  const c = $('#adminContent');
+  const cfg = state.config;
+  c.innerHTML = `
+    <div class="admin-section">
+      <h3>Site Details</h3>
+      <div class="inline-form">
+        <div class="field-row">
+        <div class="field-row">
+          <div class="field-col"><label>First name</label><input id="cfgNameOne" value="${escapeHtml(cfg.nameOne||'')}"></div>
+          <div class="field-col"><label>Second name</label><input id="cfgNameTwo" value="${escapeHtml(cfg.nameTwo||'')}"></div>
+        </div>
+        <div class="field-row">
+          <div class="field-col"><label>Tagline (under couple names)</label><input id="cfgCoupleLine" value="${escapeHtml(cfg.coupleLine||'')}"></div>
+          <div class="field-col"><label>Wedding date</label><input id="cfgDate" value="${escapeHtml(cfg.weddingDate||'')}" placeholder="e.g. September 19, 2026"></div>
+        </div>
+        <label>Honeymoon fund heading</label>
+        <input id="cfgFundTitle" value="${escapeHtml(cfg.fundTitle||'')}">
+        <label style="margin-top:10px;">Honeymoon fund message</label>
+        <textarea id="cfgFundText" rows="3">${escapeHtml(cfg.fundText||'')}</textarea>
+        <label style="margin-top:10px;">How to contribute (e.g. Venmo @name, Zelle, PayPal.me link)</label>
+        <input id="cfgFundHow" value="${escapeHtml(cfg.fundHow||'')}" placeholder="e.g. Venmo: @MyVenmoUsername">
+        <label style="margin-top:10px;">Shipping note for gift-givers (optional)</label>
+        <textarea id="cfgShipping" rows="2" placeholder="e.g. Please ship to: 123 Main St, Boston, MA 02118">${escapeHtml(cfg.shippingAddress||'')}</textarea>
+        <div class="modal-actions" style="justify-content:flex-start;margin-top:14px;">
+          <button class="btn btn-primary" id="saveSettingsBtn">Save Settings</button>
+        </div>
+      </div>
+    </div>
+    <div class="admin-section">
+      <h3>Security</h3>
+      <button class="btn" id="changePwBtn">Change host password</button>
+    </div>
+  `;
+  $('#saveSettingsBtn').addEventListener('click', async ()=>{
+    cfg.nameOne = $('#cfgNameOne').value.trim();
+    cfg.nameTwo = $('#cfgNameTwo').value.trim();
+    cfg.coupleLine = $('#cfgCoupleLine').value.trim();
+    cfg.weddingDate = $('#cfgDate').value.trim();
+    cfg.fundTitle = $('#cfgFundTitle').value.trim();
+    cfg.fundText = $('#cfgFundText').value.trim();
+    cfg.fundHow = $('#cfgFundHow').value.trim();
+    cfg.shippingAddress = $('#cfgShipping').value.trim();
+    await saveConfig(cfg);
+    applyConfigToHeader();
+    showToast('Settings saved.');
+  });
+  $('#changePwBtn').addEventListener('click', ()=>{
+    const cur = prompt('Enter your current password to continue:');
+    if(cur===null) return;
+    sha256(cur).then(async hash=>{
+      if(hash !== cfg.adminPasswordHash){ showToast('Incorrect current password.'); return; }
+      const np = prompt('Enter a new password (min 4 characters):');
+      if(!np || np.length<4){ showToast('Password not changed.'); return; }
+      cfg.adminPasswordHash = await sha256(np);
+      await saveConfig(cfg);
+      showToast('Password updated.');
+    });
+  });
+}
+
+init();
+})();
+</script>
+</body>
+</html>
