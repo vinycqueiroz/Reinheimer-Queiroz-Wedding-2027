@@ -533,8 +533,8 @@ function applyConfigToHeader(){
   $('#fundText').textContent = state.config.fundText || '';
   const shipEl = $('#shipLine');
   const shipParts = [];
-  if(state.config.fundHow) shipParts.push(escapeHtml(state.config.fundHow));
-  if(state.config.shippingAddress) shipParts.push(escapeHtml(state.config.shippingAddress));
+  if(state.config.fundHow) shipParts.push(escapeHtml(state.config.fundHow).replace(/\n/g,'<br>'));
+  if(state.config.shippingAddress) shipParts.push(escapeHtml(state.config.shippingAddress).replace(/\n/g,'<br>'));
   if(shipParts.length){
     shipEl.innerHTML = shipParts.join('<br>');
     shipEl.style.display = 'block';
