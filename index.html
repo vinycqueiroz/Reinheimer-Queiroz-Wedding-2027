@@ -314,6 +314,28 @@
     .fund-banner{padding:28px 20px;}
   }
 </style>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDQlOKaZ5WAbPZMO9ZqXNtfWIsb6XQL_HE",
+  authDomain: "our-wedding-website-af562.firebaseapp.com",
+  databaseURL: "https://our-wedding-website-af562-default-rtdb.firebaseio.com",
+  projectId: "our-wedding-website-af562",
+  storageBucket: "our-wedding-website-af562.firebasestorage.app",
+  messagingSenderId: "96172412512",
+  appId: "1:96172412512:web:bb4e8b6ad988b9eab8fd05",
+  measurementId: "G-HPGC10KT0W"
+};
+
+const app = initializeApp(firebaseConfig);
+window._db = getFirestore(app); // expose for the main script below
+window._fsDoc = doc;
+window._fsGetDoc = getDoc;
+window._fsSetDoc = setDoc;
+window._fbReady = true;
+</script>
 </head>
 <body>
 
@@ -412,31 +434,34 @@ async function sha256(text){
   return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 
-// ---------- storage layer (shared storage, falls back to localStorage) ----------
-const store = (function(){
-  const hasShared = typeof window !== 'undefined' && window.storage && typeof window.storage.get === 'function';
-  const mem = {};
-  return {
-    async get(key){
-      if(hasShared){
-        try { return await window.storage.get(key, true); } catch(e){ return null; }
-      }
-      try {
-        const v = localStorage.getItem('wed:'+key);
-        return v === null ? null : { key, value: v };
-      } catch(e){
-        return mem[key] !== undefined ? { key, value: mem[key] } : null;
-      }
-    },
-    async set(key, value){
-      if(hasShared){
-        try { return await window.storage.set(key, value, true); } catch(e){}
-      }
-      try { localStorage.setItem('wed:'+key, value); } catch(e){ mem[key] = value; }
-      return { key, value };
-    }
-  };
-})();
+// Wait until the Firebase <script type="module"> block above has finished
+// initializing (module scripts run after the page parses, but this classic
+// script runs immediately — without this wait, init() would try to use
+// window._db before it exists).
+function waitForFirebase(){
+  return new Promise(resolve=>{
+    if(window._fbReady) return resolve();
+    const iv = setInterval(()=>{
+      if(window._fbReady){ clearInterval(iv); resolve(); }
+    }, 25);
+  });
+}
+
+// ---------- storage layer (Firestore) ----------
+const store = {
+  async get(key){
+    try{
+      const snap = await window._fsGetDoc(window._fsDoc(window._db, "weddingSite", key));
+      return snap.exists() ? { key, value: snap.data().value } : null;
+    }catch(e){ console.error(e); return null; }
+  },
+  async set(key, value){
+    try{
+      await window._fsSetDoc(window._fsDoc(window._db, "weddingSite", key), { value });
+    }catch(e){ console.error(e); }
+    return { key, value };
+  }
+};
 
 async function loadConfig(){
   try{
@@ -468,6 +493,7 @@ async function saveItems(items){
 
 // ---------- init ----------
 async function init(){
+  await waitForFirebase();
   main_show_loading(true);
   state.config = await loadConfig();
   state.families = await loadFamilies();
@@ -1103,30 +1129,6 @@ function renderAdminSettings(){
 
 init();
 })();
-</script>
-  <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDQlOKaZ5WAbPZMO9ZqXNtfWIsb6XQL_HE",
-    authDomain: "our-wedding-website-af562.firebaseapp.com",
-    databaseURL: "https://our-wedding-website-af562-default-rtdb.firebaseio.com",
-    projectId: "our-wedding-website-af562",
-    storageBucket: "our-wedding-website-af562.firebasestorage.app",
-    messagingSenderId: "96172412512",
-    appId: "1:96172412512:web:bb4e8b6ad988b9eab8fd05",
-    measurementId: "G-HPGC10KT0W"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
 </script>
 </body>
 </html>
