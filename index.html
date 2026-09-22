@@ -666,7 +666,7 @@ function renderRegistry(){
         <div class="gift-actions">
           ${item.purchased
             ? `<div class="gift-taken">Already claimed${item.purchasedBy ? ' by '+escapeHtml(item.purchasedBy) : ''} — thank you!</div>`
-            : `<button class="gift-claim-btn" data-claim="${item.id}">Tap to mark gift as claimed</button>`
+            : `<button class="gift-claim-btn" data-claim="${item.id}">Mark gift as claimed</button>`
           }
         </div>
       </div>
