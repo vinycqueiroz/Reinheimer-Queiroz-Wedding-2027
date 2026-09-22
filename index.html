@@ -662,11 +662,11 @@ function renderRegistry(){
         <div class="gift-cat">${escapeHtml(item.category||'Gift')}</div>
         <div class="gift-name">${escapeHtml(item.name)}</div>
         ${item.price ? `<div class="gift-price">${escapeHtml(item.price)}</div>` : ''}
-        ${item.link ? `<a class="gift-link" href="${item.link}" target="_blank" rel="noopener">View item ↗</a>` : ''}
+        ${item.link ? `<a class="gift-link" href="${item.link}" target="_blank" rel="noopener">Link to purchase ↗</a>` : ''}
         <div class="gift-actions">
           ${item.purchased
             ? `<div class="gift-taken">Already claimed${item.purchasedBy ? ' by '+escapeHtml(item.purchasedBy) : ''} — thank you!</div>`
-            : `<button class="gift-claim-btn" data-claim="${item.id}">I'll get this gift</button>`
+            : `<button class="gift-claim-btn" data-claim="${item.id}">Tap to mark gift as claimed</button>`
           }
         </div>
       </div>
