@@ -214,7 +214,7 @@
   .gift-price{color:#8a7f6d;font-size:16px;margin-bottom:12px;}
   .gift-actions{margin-top:auto;display:flex;flex-direction:column;gap:8px;}
   .gift-link{
-    font-size:22px;color:var(--burgundy);text-decoration:underline;
+    font-size:17px;color:var(--burgundy);text-decoration:underline;
   }
   .gift-claim-btn{
     background:var(--burgundy);color:#fff;border:none;padding:9px;font-size:16px;
@@ -311,6 +311,11 @@
   }
   .toast.show{opacity:1;}
   .loading{text-align:center;padding:60px 0;color:#8a7f6d;font-style:italic;}
+  .loading-notice{
+    background:var(--gold);color:var(--ink);
+    text-align:center;padding:10px 16px;font-size:15px;
+    letter-spacing:0.2px;
+  }
   @media (max-width:520px){
     .hero{padding:40px 16px 26px;}
     nav.tabs button{padding:14px 16px 12px;font-size:16px;}
@@ -341,6 +346,8 @@ window._fbReady = true;
 </script>
 </head>
 <body>
+
+<div class="loading-notice" id="loadingNotice">Loading the latest info… if this doesn't disappear in a few seconds, please refresh the page.</div>
 
 <header class="hero">
   <svg class="hero-flourish" viewBox="0 0 800 200" preserveAspectRatio="none"><path d="M0,150 Q200,80 400,150 T800,150" stroke="#f4efe2" stroke-width="1" fill="none"/></svg>
@@ -520,7 +527,8 @@ async function init(){
   main_show_loading(false);
 }
 function main_show_loading(on){
-  // no-op placeholder for potential future loading UI
+  const el = $('#loadingNotice');
+  if(el) el.style.display = on ? 'block' : 'none';
 }
 
 function applyConfigToHeader(){
@@ -662,11 +670,11 @@ function renderRegistry(){
         <div class="gift-cat">${escapeHtml(item.category||'Gift')}</div>
         <div class="gift-name">${escapeHtml(item.name)}</div>
         ${item.price ? `<div class="gift-price">${escapeHtml(item.price)}</div>` : ''}
-        ${item.link ? `<a class="gift-link" href="${item.link}" target="_blank" rel="noopener">Link to purchase ↗</a>` : ''}
+        ${item.link ? `<a class="gift-link" href="${item.link}" target="_blank" rel="noopener">View item ↗</a>` : ''}
         <div class="gift-actions">
           ${item.purchased
             ? `<div class="gift-taken">Already claimed${item.purchasedBy ? ' by '+escapeHtml(item.purchasedBy) : ''} — thank you!</div>`
-            : `<button class="gift-claim-btn" data-claim="${item.id}">Mark gift as claimed</button>`
+            : `<button class="gift-claim-btn" data-claim="${item.id}">I'll get this gift</button>`
           }
         </div>
       </div>
